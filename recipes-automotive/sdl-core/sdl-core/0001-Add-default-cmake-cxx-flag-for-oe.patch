@@ -1,0 +1,39 @@
+From 3b13977069d3382b77a839395dde88524740319c Mon Sep 17 00:00:00 2001
+From: Truong Van Huy <huytv12@fsoft.com.vn>
+Date: Mon, 15 Jul 2019 10:09:10 +0700
+Subject: [PATCH 1/4] Add default cmake cxx flag for oe Ignore
+ -Werror=maybe-uninitialized flag
+
+---
+ CMakeLists.txt | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 3eb79ff..e0cb84d 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -75,8 +75,8 @@ set(POLICY_OPTION 	"$ENV{POLICY_TYPE}")
+ set(SECURITY_OPTION 	"$ENV{SECURITY_MODE}")
+ set(COMPONENTS_DIR ${CMAKE_SOURCE_DIR}/src/components)
+ set(SNAPSHOT_TAG 	"$ENV{SNAPSHOT_TAG}")
+-set(CMAKE_CXX_COMPILER   $ENV{CMAKE_CXX_COMPILER})
+-set(CMAKE_C_COMPILER     $ENV{CMAKE_C_COMPILER})
++#set(CMAKE_CXX_COMPILER   $ENV{CMAKE_CXX_COMPILER})
++#set(CMAKE_C_COMPILER     $ENV{CMAKE_C_COMPILER})
+ set(BUILDDIR "$ENV{BUILDDIR}")
+ 
+ if (ARCH_TYPE_OPTION)
+@@ -236,8 +236,8 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/Modules/")
+ # set(CMAKE_INSTALL_PREFIX ${CMAKE_CURRENT_BINARY_DIR})
+ set(ARCHIVE_OUTPUT_DIRECTORY ./bin)
+ 
+-set(EXCLUDE_ERROR_FLAGS "-Wno-error=unused-variable -Wno-error=unused-but-set-variable -Wno-error=deprecated-declarations")
+-set(CMAKE_CXX_FLAGS "-fPIC -std=gnu++0x -Wall -Werror ${EXCLUDE_ERROR_FLAGS} -Wuninitialized -Wvla")
++set(EXCLUDE_ERROR_FLAGS "-Wno-error=unused-variable -Wno-error=unused-but-set-variable -Wno-error=deprecated-declarations -Wno-error=maybe-uninitialized")
++set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC -std=gnu++0x -Wall -Werror ${EXCLUDE_ERROR_FLAGS} -Wuninitialized -Wvla")
+ 
+ if (USE_GOLD_LD)
+   execute_process(COMMAND ld -v OUTPUT_VARIABLE result)
+-- 
+2.7.4
+

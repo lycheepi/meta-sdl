@@ -4,8 +4,7 @@ DESCRIPTION = "SmartDeviceLink (SDL) is a standard set of protocols and messages
 HOMEPAGE = "https://www.smartdevicelink.com"
 LICENSE = "BSD-3-Clause"
 
-LIC_FILES_CHKSUM = "file://LICENSE;md5=37fc754617a4cd43d221b3042dc1be11 \
-                    file://src/3rd_party/dbus-1.7.8/COPYING;md5=10dded3b58148f3f1fd804b26354af3e \
+LIC_FILES_CHKSUM = "file://LICENSE;md5=ecc58617265863ee517caa91580a143d \
                     file://src/3rd_party/expat-2.1.0/COPYING;md5=1b71f681713d1256e1c23b0890920874 \
                     file://src/3rd_party/apr-1.5.0/LICENSE;md5=4dfd4cd216828c8cae5de5a12f3844c8 \
                     file://src/3rd_party/apr-util-1.5.3/LICENSE;md5=519e0a18e03f7c023070568c14b077bb \
@@ -22,21 +21,19 @@ LIC_FILES_CHKSUM = "file://LICENSE;md5=37fc754617a4cd43d221b3042dc1be11 \
 SRC_URI = "git://github.com/smartdevicelink/sdl_core.git;branch=master"
 
 SRC_URI += " \
-    file://0001-add-the-default-cmake-cxx-flag-for-oe.patch \
     file://0002-Use-the-default-install-prefix-of-cmake.patch \
     file://0003-disable-building-sdl-tools.patch \
-    file://0004-Change-to-use-standard-libdir.patch \
     file://0005-add-env-for-log4cxx-properties-path.patch \
-    file://0006-Install-the-configure-file-to-sysconf-dir.patch \
     file://0007-Add-standard-usr-lib-path-to-rpath.patch \
-    file://0001-fix-bugs-to-allow-build-with-gcc-7.2.0-under-Ubuntu-.patch \
-    file://0002-remove-unused-code.patch \
-    file://0001-Unbreak-build-when-BUILD_BT_SUPPORT-OFF.patch \
+    file://0001-Add-default-cmake-cxx-flag-for-oe.patch \
+    file://0002-Install-the-configure-file-to-sysconf-dir.patch \
+    file://0003-Change-to-use-standard-libdir.patch \
+    file://0004-Change-to-use-plugins-folder-etc-smartdevicelink-plu.patch \
     file://smartdevicelink.service \
 "
 
-PV = "4.4.1"
-SRCREV = "61c37f3763b7f84dca8f42ffdaa705d454d1b711"
+PV = "5.1.0"
+SRCREV = "9b3d77829b5241a7b23bfbe450d69036d41d5d91"
 
 S = "${WORKDIR}/git"
 
@@ -55,7 +52,7 @@ PACKAGECONFIG[bluez5] = "-DBUILD_BT_SUPPORT=ON,-DBUILD_BT_SUPPORT=OFF,bluez5 pul
 
 PACKAGECONFIG[pulseaudio] = "-DEXTENDED_MEDIA_MODE=ON,-DEXTENDED_MEDIA_MODE=OFF,pulseaudio,pulseaudio-module-alsa-sink"
 
-DEPENDS += "avahi glib-2.0 sqlite3 log4cxx dbus openssl libusb1 bson-c-lib"
+DEPENDS += "avahi glib-2.0 sqlite3 log4cxx dbus openssl libusb1 bson-c-lib boost"
 DEPENDS += "gstreamer1.0 gstreamer1.0-plugins-good"
 DEPENDS += "gstreamer1.0-rtsp-server"
 
@@ -66,6 +63,7 @@ EXTRA_OECMAKE += "-DUSE_CCACHE=OFF"
 EXTRA_OECMAKE += "-DCMAKE_BUILD_TYPE=RelWithDebInfo"
 EXTRA_OECMAKE += "-DUSE_GOLD_LD=OFF"
 PARALLEL_MAKE = ""
+OECMAKE_FIND_ROOT_PATH_MODE_PROGRAM = "BOTH"
 
 cmake_do_generate_toolchain_file_append() {
     cat >> ${WORKDIR}/toolchain.cmake <<EOF

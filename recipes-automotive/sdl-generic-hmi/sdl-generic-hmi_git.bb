@@ -6,12 +6,12 @@ HOMEPAGE = "https://www.smartdevicelink.com"
 SECTION = "app"
 
 LICENSE = "BSD-3-Clause"
-LIC_FILES_CHKSUM = "file://LICENSE;md5=cf455e8d39d2ded1d85b1c5dea6ec3c5"
+LIC_FILES_CHKSUM = "file://LICENSE;md5=5a25b457a3545e4e09764603fb0121de"
 
-SRC_URI = "git://github.com/smartdevicelink/generic_hmi.git;branch=develop"
+SRC_URI = "git://github.com/smartdevicelink/generic_hmi.git;branch=release/0.6.0"
 
-PV = "0.0.0+git${SRCPV}"
-SRCREV = "8d05d53d228d1dec82b78af824e33a0de5697e0c"
+PV = "0.6.0+git${SRCPV}"
+SRCREV = "f5a16f446b894544a64307c669a16696a0ff22e4"
 
 S = "${WORKDIR}/git"
 

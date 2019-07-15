@@ -1,7 +1,7 @@
-From 34f1146449d8695bdc74600ded1df32cc544e03f Mon Sep 17 00:00:00 2001
-From: Phong Tran <tranmanphong@gmail.com>
-Date: Sun, 17 Jul 2016 14:03:13 +0700
-Subject: [PATCH 4/7] Change to use standard libdir
+From 016385a69c40191794859eee99b2bc0a0053cd68 Mon Sep 17 00:00:00 2001
+From: Truong Van Huy <huytv12@fsoft.com.vn>
+Date: Mon, 15 Jul 2019 10:21:11 +0700
+Subject: [PATCH 3/4] Change to use standard libdir
 
 The lib*.so should be in /usr/lib path.
 
@@ -9,13 +9,12 @@ Signed-off-by: Phong Tran <tranmanphong@gmail.com>
 ---
  src/components/policy/policy_external/CMakeLists.txt | 4 ++--
  src/components/policy/policy_regular/CMakeLists.txt  | 2 +-
- src/components/remote_control/CMakeLists.txt         | 2 +-
  src/components/utils/CMakeLists.txt                  | 2 +-
  src/plugins/appenders/CMakeLists.txt                 | 2 +-
- 5 files changed, 6 insertions(+), 6 deletions(-)
+ 4 files changed, 5 insertions(+), 5 deletions(-)
 
 diff --git a/src/components/policy/policy_external/CMakeLists.txt b/src/components/policy/policy_external/CMakeLists.txt
-index 8d04f20..7a421be 100644
+index bd05291..c47b6e8 100644
 --- a/src/components/policy/policy_external/CMakeLists.txt
 +++ b/src/components/policy/policy_external/CMakeLists.txt
 @@ -30,7 +30,7 @@
@@ -27,7 +26,7 @@ index 8d04f20..7a421be 100644
  set(copy_destination ${CMAKE_BINARY_DIR}/src/appMain)
  set(library_name ${CMAKE_SHARED_LIBRARY_PREFIX}${target}${CMAKE_SHARED_LIBRARY_SUFFIX})
  
-@@ -92,7 +92,7 @@ add_custom_target(copy_library_${target} ALL
+@@ -90,7 +90,7 @@ add_custom_target(copy_library_${target} ALL
      COMMENT "Copying library ${library_name}")
  
  install(TARGETS ${target}
@@ -37,10 +36,10 @@ index 8d04f20..7a421be 100644
      GROUP_READ GROUP_EXECUTE
      WORLD_READ WORLD_EXECUTE
 diff --git a/src/components/policy/policy_regular/CMakeLists.txt b/src/components/policy/policy_regular/CMakeLists.txt
-index c7b9c06..61ddecb 100644
+index 3679b2e..36cdff5 100644
 --- a/src/components/policy/policy_regular/CMakeLists.txt
 +++ b/src/components/policy/policy_regular/CMakeLists.txt
-@@ -102,7 +102,7 @@ endif()
+@@ -96,7 +96,7 @@ endif()
  
  set(LIBRARY_NAME ${CMAKE_SHARED_LIBRARY_PREFIX}Policy${CMAKE_SHARED_LIBRARY_SUFFIX})
  set(TARGET_LOCATION ${CMAKE_CURRENT_BINARY_DIR}/${LIBRARY_NAME})
@@ -49,22 +48,11 @@ index c7b9c06..61ddecb 100644
  set(COPY_DESTINATION ${CMAKE_BINARY_DIR}/src/appMain)
  
  add_custom_target(copy_policy_library ALL
-diff --git a/src/components/remote_control/CMakeLists.txt b/src/components/remote_control/CMakeLists.txt
-index a320273..c1d2c51 100644
---- a/src/components/remote_control/CMakeLists.txt
-+++ b/src/components/remote_control/CMakeLists.txt
-@@ -1,5 +1,5 @@
- set(target "RemoteControlModule")
--set(install_destination ${CMAKE_BINARY_DIR}/bin/plugins)
-+set(install_destination ${CMAKE_INSTALL_LIBDIR})
- if (ENABLE_GCOV)
-   set(GCOV_FLAGS "-ftest-coverage -fprofile-arcs")
- else()
 diff --git a/src/components/utils/CMakeLists.txt b/src/components/utils/CMakeLists.txt
-index 51835c1..abb4cd7 100644
+index 9562b50..1d7fcf1 100644
 --- a/src/components/utils/CMakeLists.txt
 +++ b/src/components/utils/CMakeLists.txt
-@@ -124,7 +124,7 @@ if(BUILD_TESTS)
+@@ -134,7 +134,7 @@ if(BUILD_TESTS)
  endif()
  
  install(TARGETS "Utils"

@@ -1,0 +1,104 @@
+From cd416956ea9e0c6987501600b82fbca77898ce7e Mon Sep 17 00:00:00 2001
+From: Truong Van Huy <huytv12@fsoft.com.vn>
+Date: Mon, 15 Jul 2019 10:32:27 +0700
+Subject: [PATCH 4/4] Change to use plugins folder /etc/smartdevicelink/plugins
+
+---
+ src/appMain/smartDeviceLink.ini                                       | 4 ++--
+ .../rpc_plugins/app_service_rpc_plugin/CMakeLists.txt                 | 4 ++--
+ .../application_manager/rpc_plugins/rc_rpc_plugin/CMakeLists.txt      | 4 ++--
+ .../application_manager/rpc_plugins/sdl_rpc_plugin/CMakeLists.txt     | 4 ++--
+ .../rpc_plugins/vehicle_info_plugin/CMakeLists.txt                    | 4 ++--
+ 5 files changed, 10 insertions(+), 10 deletions(-)
+
+diff --git a/src/appMain/smartDeviceLink.ini b/src/appMain/smartDeviceLink.ini
+index 54c2395..b01dc87 100644
+--- a/src/appMain/smartDeviceLink.ini
++++ b/src/appMain/smartDeviceLink.ini
+@@ -88,7 +88,7 @@ ReadDIDRequest = 5, 1
+ GetVehicleDataRequest = 5, 1
+ ; Limitation for a number of GetInteriorVehicleDataRequest requests (the 1st value) per (the 2nd value) seconds
+ GetInteriorVehicleDataRequest = 5, 1
+-PluginFolder = ./
++PluginFolder = /etc/smartdevicelink/plugins
+ 
+ ; The time used during switch transport procedure
+ AppTransportChangeTimer = 500
+@@ -378,4 +378,4 @@ HMIOriginID = "HMI_ID"
+ EmbeddedServices = MEDIA, WEATHER, NAVIGATION
+ 
+ ; Additional time added to RPC timeout when passing through to App service
+-RpcPassThroughTimeout = 10000
+\ No newline at end of file
++RpcPassThroughTimeout = 10000
+diff --git a/src/components/application_manager/rpc_plugins/app_service_rpc_plugin/CMakeLists.txt b/src/components/application_manager/rpc_plugins/app_service_rpc_plugin/CMakeLists.txt
+index 1e23aac..221b251 100644
+--- a/src/components/application_manager/rpc_plugins/app_service_rpc_plugin/CMakeLists.txt
++++ b/src/components/application_manager/rpc_plugins/app_service_rpc_plugin/CMakeLists.txt
+@@ -70,10 +70,10 @@ target_link_libraries("app_service_rpc_plugin" ${LIBRARIES})
+ add_library("AppServiceRpcPluginStaticLib" ${PLUGIN_SOURCES} ${MOBILE_COMMANDS} ${HMI_COMMANDS})
+ target_link_libraries("AppServiceRpcPluginStaticLib" ${LIBRARIES})
+ 
+-set(INSTALL_DESTINATION bin)
++set(INSTALL_DESTINATION ${CMAKE_INSTALL_SYSCONFDIR}/smartdevicelink/plugins)
+ 
+ install(TARGETS app_service_rpc_plugin
+-  DESTINATION ${INSTALL_DESTINATION}
++  DESTINATION ${CMAKE_INSTALL_SYSCONFDIR}/smartdevicelink/plugins
+   PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE
+     GROUP_READ GROUP_EXECUTE
+     WORLD_READ WORLD_EXECUTE
+diff --git a/src/components/application_manager/rpc_plugins/rc_rpc_plugin/CMakeLists.txt b/src/components/application_manager/rpc_plugins/rc_rpc_plugin/CMakeLists.txt
+index 00de927..7b288f2 100644
+--- a/src/components/application_manager/rpc_plugins/rc_rpc_plugin/CMakeLists.txt
++++ b/src/components/application_manager/rpc_plugins/rc_rpc_plugin/CMakeLists.txt
+@@ -66,10 +66,10 @@ target_link_libraries("rc_rpc_plugin" ${LIBRARIES})
+ add_library("RCRpcPluginStaticLib" ${PLUGIN_SOURCES} ${MOBILE_COMMANDS} ${HMI_COMMANDS})
+ target_link_libraries("RCRpcPluginStaticLib" ${LIBRARIES})
+ 
+-set(INSTALL_DESTINATION bin)
++set(INSTALL_DESTINATION ${CMAKE_INSTALL_SYSCONFDIR}/smartdevicelink/plugins)
+ 
+ install(TARGETS rc_rpc_plugin
+-  DESTINATION ${INSTALL_DESTINATION}
++  DESTINATION ${CMAKE_INSTALL_SYSCONFDIR}/smartdevicelink/plugins
+   PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE
+     GROUP_READ GROUP_EXECUTE
+     WORLD_READ WORLD_EXECUTE
+diff --git a/src/components/application_manager/rpc_plugins/sdl_rpc_plugin/CMakeLists.txt b/src/components/application_manager/rpc_plugins/sdl_rpc_plugin/CMakeLists.txt
+index fdf02b5..30262fc 100644
+--- a/src/components/application_manager/rpc_plugins/sdl_rpc_plugin/CMakeLists.txt
++++ b/src/components/application_manager/rpc_plugins/sdl_rpc_plugin/CMakeLists.txt
+@@ -67,10 +67,10 @@ endif()
+ add_library("sdl_rpc_plugin" SHARED ${MOBILE_COMMANDS} ${HMI_COMMANDS} ${RPC_PLUGIN_SOURCES} ${APP_EXTENSIONS})
+ target_link_libraries("sdl_rpc_plugin" ${LIBRARIES})
+ 
+-set(INSTALL_DESTINATION bin)
++set(INSTALL_DESTINATION ${CMAKE_INSTALL_SYSCONFDIR}/smartdevicelink/plugins)
+ 
+ install(TARGETS sdl_rpc_plugin
+-  DESTINATION ${INSTALL_DESTINATION}
++  DESTINATION ${CMAKE_INSTALL_SYSCONFDIR}/smartdevicelink/plugins
+   PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE
+     GROUP_READ GROUP_EXECUTE
+     WORLD_READ WORLD_EXECUTE
+diff --git a/src/components/application_manager/rpc_plugins/vehicle_info_plugin/CMakeLists.txt b/src/components/application_manager/rpc_plugins/vehicle_info_plugin/CMakeLists.txt
+index 0e556a6..9de70bf 100644
+--- a/src/components/application_manager/rpc_plugins/vehicle_info_plugin/CMakeLists.txt
++++ b/src/components/application_manager/rpc_plugins/vehicle_info_plugin/CMakeLists.txt
+@@ -58,10 +58,10 @@ endif()
+ add_library("vehicle_info_plugin" SHARED ${MOBILE_COMMANDS} ${HMI_COMMANDS} ${VEHICLE_INFO_PLUGIN_SOURCES})
+ target_link_libraries("vehicle_info_plugin" ${LIBRARIES})
+ 
+-set(INSTALL_DESTINATION bin)
++set(INSTALL_DESTINATION ${CMAKE_INSTALL_SYSCONFDIR}/smartdevicelink/plugins)
+ 
+ install(TARGETS vehicle_info_plugin
+-  DESTINATION ${INSTALL_DESTINATION}
++  DESTINATION ${CMAKE_INSTALL_SYSCONFDIR}/smartdevicelink/plugins
+   PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE
+     GROUP_READ GROUP_EXECUTE
+     WORLD_READ WORLD_EXECUTE
+-- 
+2.7.4
+
